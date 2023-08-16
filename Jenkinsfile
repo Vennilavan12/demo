@@ -1,30 +1,32 @@
 pipeline {
-    agent any
-    options{
-        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
-        timestamps()
+  agent any 
+   environment {
+    dockerImage=''
+    DOCKERHUB_CREDENTIALS = 'docker'
+    registry="vennilavan/pythonflask_app"
+  } 
+  stages {
+    stage ('Checkout') {
+      steps { 
+        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Vennilavan12/demo.git']])
+        echo "Checkoutdone"
+      }
     }
-    environment{
-        
-        registry = "vennilavan/pythonflask_app"
-        registryCredential = 'docker'        
-    }
-    
-    stages{
-      stage('Building image') {
-        steps{
-          script {
+    stage ('Build') {
+      steps {
+        script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-       stage('Deploy Image') {
-         steps{
-           script {
-            docker.withRegistry( '', registryCredential ) {
+    stage ('Push Image to Dockerhub') {
+      steps {  
+        script {
+          docker.withRegistry('', DOCKERHUB_CREDENTIALS ) {
             dockerImage.push()
           }
-        }
+        } 
       }
     }
+  }
 }
