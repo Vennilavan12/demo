@@ -6,6 +6,8 @@ ADD . /app
 
 WORKDIR /app
 
+RUN py -m pip install --upgrade pip
+
 RUN pip install -r requirements.txt
 
 CMD ["python", "app.py"]
