@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment #The name of the Kubernetes Deployment to be created in the Kubernetes cluster
+  labels:
+    app: myapp
+spec:
+  replicas: 1 #The number of pods to be created in the Kubernetes cluster for the React.js application container
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp 
+    spec:
+      containers:
+      - name: myapp
+        image: vennilavan/pythonflask_app:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m" 
+        ports:
+        - containerPort: 5000 
