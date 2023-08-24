@@ -30,10 +30,11 @@ pipeline {
     }
     stage('Deploying Flask container to Kubernetes') {
       steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+        kubeconfig(credentialsId: 'k8s', serverUrl: 'https://192.168.49.2:8443') {
+           sh("kubectl apply -f k8s/development/deployment.yaml")
+           sh("kubectl -apply -f k8s/development/service.yaml")
         }
       }
-    } 
-  }
+    }
+ } 
 }
