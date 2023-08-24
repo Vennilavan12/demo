@@ -32,7 +32,7 @@ pipeline {
       steps {
         withKubeConfig(credentialsId: 'k8s', serverUrl: 'https://192.168.49.2:8443') {
           sh 'kubectl apply -f deployment.yaml'
-          sh 'kubectl -apply -f service.yaml'
+          sh 'kubectl apply -f service.yaml'
         } 
       }
     }
