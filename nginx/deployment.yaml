@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: vennilavan/dev:latest
+        image: vennilavan/newnpm:latest
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m" 
         ports:
-        - containerPort: 4000
+        - containerPort: 3000
