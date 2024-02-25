@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: nginx:alpine
+        image: vennilavan/dev:latest
         resources:
           limits:
             memory: "128Mi"
