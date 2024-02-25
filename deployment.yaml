@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: vennilavan/pythonflask_app:latest
+        image: nginx:alpine
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m" 
         ports:
-        - containerPort: 5000 
+        - containerPort: 80 
